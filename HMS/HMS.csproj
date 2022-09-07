@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -112,12 +119,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -167,6 +168,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccomodationPackagesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccomodationsController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccomodationTypesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationPackagesModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationsModels.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationTypesModels.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\UsersViewModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -177,8 +188,49 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PageViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Dashboard\Content\css\styles.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.rtl.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.rtl.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.rtl.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-theme.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.rtl.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.rtl.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\Site.css" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\bootstrap.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\bootstrap.min.js" />
+    <None Include="Areas\Dashboard\Content\Vendor\jquery\jquery-1.10.2.intellisense.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery-1.10.2.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery-1.10.2.min.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery-ui-1.11.4.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery-ui-1.11.4.min.js" />
+    <None Include="Areas\Dashboard\Content\Vendor\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery.validate.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery.validate.min.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\modernizr-2.8.3.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.bundle.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.bundle.min.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.esm.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.esm.min.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.min.js" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\scripts.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -189,6 +241,51 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Dashboard\Views\web.config" />
+    <Content Include="Areas\Dashboard\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationTypes\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationTypes\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationTypes\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.rtl.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.rtl.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\bootstrap\bootstrap.rtl.min.css.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\jquery\jquery-1.10.2.min.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.bundle.js.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.esm.js.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.esm.min.js.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.js.map" />
+    <Content Include="Areas\Dashboard\Content\Vendor\js\bootstrap.min.js.map" />
+    <Content Include="Areas\Dashboard\Views\AccomodationTypes\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -237,6 +334,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Dashboard\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -259,6 +357,10 @@
     <ProjectReference Include="..\HMS.Entities\HMS.Entities.csproj">
       <Project>{14DF8AB9-61B0-473F-AD91-D5CA75FFC3CA}</Project>
       <Name>HMS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HMS.Service\HMS.Service.csproj">
+      <Project>{C7189B4A-434B-4A15-824E-E6FE6E1E1F0D}</Project>
+      <Name>HMS.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -294,7 +396,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
